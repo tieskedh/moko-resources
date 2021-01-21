@@ -24,7 +24,7 @@ class JvmImagesGenerator(inputFileTree: FileTree) : ImagesGenerator(inputFileTre
 
         keyFileMap.forEach { (key, files) ->
             // We copy the only highest quality image to jvm
-            val hqFile = files.maxBy {
+            val hqFile = files.maxByOrNull {
                 it.nameWithoutExtension.substringAfter("@").substringBefore("x").toDouble()
             } ?: return
             hqFile.copyTo(File(imagesDir, "$key.${hqFile.extension}"))
